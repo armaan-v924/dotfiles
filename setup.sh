@@ -23,6 +23,9 @@ brew install fzf
 echo "Installing Stow..."
 brew install stow
 
+echo "Installing Starship..."
+brew install starship
+
 mkdir -p ~/.dotfiles
 git clone https://github.com/armaan-v924/dotfiles ~/.dotfiles
 cd ~/.dotfiles
@@ -78,3 +81,19 @@ echo "Installing Games..."
 brew install --cask steam
 brew install --cash epic-games
 brew install --cask minecraft
+
+echo "Installing Fonts..."
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code-nerd-font
+brew install --cask font-fira-code
+brew install --cask font-hack-nerd-font
+brew install --cask font-hack
+brew install --cask font-geist-mono-nerd-font
+brew install --cask font-geist-mono
+brew install --cask font-jetbrains-mono-nerd-font
+brew install --cask font-jetbrains-mono
+brew install --cask font-source-code-pro-for-powerline
+brew install --cask font-source-code-pro
+
+brew cask cleanup
+brew cleanup

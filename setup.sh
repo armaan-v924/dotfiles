@@ -1,8 +1,10 @@
 #!/bin/bash
-
 cd ~
 
 echo "Setting up macOS..."
+
+echo "Installing Xcode Command Line Tools..."
+xcode-select --install
 
 if test ! $(which brew); then
   echo "Installing Homebrew..."

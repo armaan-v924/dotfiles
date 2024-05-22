@@ -54,6 +54,7 @@ brew install --cask transmission
 echo "Installing Communication Tools..."
 brew install --cask zoom
 brew install --cask slack
+brew install --cask discord
 
 echo "Installing Media Tools..."
 brew install --cask spotify
@@ -66,6 +67,7 @@ brew install --cask microsoft-office
 brew install --cask adobe-creative-cloud
 brew install --cask adobe-acrobat-pro
 brew install --cask handbrake
+brew install --cask google-drive
 
 echo "Installing Utilities..."
 brew install --cask betterdisplay

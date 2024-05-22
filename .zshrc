@@ -74,6 +74,7 @@ ENABLE_CORRECTION="true"
 # Aliases
 alias ls='ls --color'
 alias cd='z'
+alias c='clear'
 
 # Shell integration
 eval "$(fzf --zsh)"

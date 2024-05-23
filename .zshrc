@@ -77,6 +77,7 @@ alias cd='z'
 alias c='clear'
 alias cat='bat'
 alias ls='eza --tree --level=1 --color=always --long --git --no-filesize --icons=always --no-permissions --no-time --no-user'
+alias vim='nvim'
 
 # Shell integration
 eval "$(fzf --zsh)"
@@ -89,6 +90,8 @@ export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --follow --exclude .git"
 
+
+# Change search method of fzf to use fd
 _fzf_compgen_path() {
   fd --hidden --follow --exclude .git . "$1"
 }
@@ -102,6 +105,8 @@ source ~/fzf-git.sh/fzf-git.sh
 # Ensure fzf is initialized
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+
+# Set previews of fzf commands
 _fzf_comprun() {
     local command=$1
     shift

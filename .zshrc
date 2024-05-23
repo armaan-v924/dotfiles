@@ -23,10 +23,10 @@ zinit light starship/starship
 source <(/opt/homebrew/bin/starship init zsh --print-full-init)
 
 # Add plugins
+zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
 
 # Add in snippets
 zinit snippet OMZP::git
@@ -39,11 +39,11 @@ autoload -U compinit && compinit
 
 zinit cdreplay -q
 
-# bind up and down arrow keys to search history
+# Bind up and down arrow keys to search history
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
-# bind ctrl+f to accept the suggestion if there is one
+# Bind ctrl+f to accept the suggestion if there is one
 bindkey '^f' autosuggest-accept
 
 # History settings
@@ -60,21 +60,23 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+
 # Completion settings
 zstyle ':completion:*' matcher-list "m:{a-zA-Z}={A-Za-z}"
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':complettion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --tree --level=2 --color=always $realpath'
+zstyle ':fzf-tab:complete:*' fzf-preview '~/preview.sh $realpath'
+zstyle ':completion:*' menu no
 zstyle ':completion:*' menu select setopt completeailiases
 
 # Enable auto correction
 ENABLE_CORRECTION="true"
 
 # Aliases
-alias ls='ls --color'
 alias cd='z'
 alias c='clear'
+alias cat='bat'
+alias ls='eza --tree --level=1 --color=always --long --git --no-filesize --icons=always --no-permissions --no-time --no-user'
 
 # Shell integration
 eval "$(fzf --zsh)"
@@ -83,18 +85,46 @@ eval "$(zoxide init --cmd cd zsh)"
 # Remove "(base)" from the prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --follow --exclude .git"
+
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude .git . "$1"
+}
+
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude .git . "$1"
+}
+
+source ~/fzf-git.sh/fzf-git.sh
+
+# Ensure fzf is initialized
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+_fzf_comprun() {
+    local command=$1
+    shift
+
+    case "$command" in
+        z)              fzf --preview 'eza --tree --color=always {} | head -200'    "$@" ;;
+        export|unset)   fzf --preview "eval 'echo \$' {}"                           "$@" ;;
+        ssh)            fzf --preview 'dig {}'                                      "$@" ;;
+        *)              fzf --preview 'bat -n --color=always --line-range :500 {}'  "$@" ;;
+    esac
+}
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('~/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/armaan/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "~/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "~/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/armaan/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/armaan/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="~/miniconda3/bin:$PATH"
+        export PATH="/Users/armaan/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-

@@ -9,7 +9,6 @@ $username\
 $hostname\
 $directory\
 $git_branch\
-$character\
 """
 
 right_format = """

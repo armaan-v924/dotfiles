@@ -49,6 +49,8 @@ brew install --cask microsoft-openjdk
 brew install python
 brew install --cask cyberduck
 brew install sshpass
+brew install bat
+brew install eza
 
 echo "Installing Web Tools..."
 brew install --cask google-chrome

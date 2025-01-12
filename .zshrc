@@ -1,6 +1,10 @@
 # Add homebrew to the path
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+export SSHPASS='op://Private/ECE-LRC Account/password'
+export PATH="/Users/armaan/Documents/School/Senior/Design/LLVM_Build/llvm-project/build/bin:$PATH"
+export PATH="/opt/cpdf:$PATH"
+
 # Set the directory to install zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -65,7 +69,7 @@ setopt hist_find_no_dups
 zstyle ':completion:*' matcher-list "m:{a-zA-Z}={A-Za-z}"
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --tree --level=2 --color=always $realpath'
-zstyle ':fzf-tab:complete:*' fzf-preview '~/preview.sh $realpath'
+zstyle ':fzf-tab:complete:*' fzf-preview '~/.preview.sh $realpath'
 zstyle ':completion:*' menu no
 zstyle ':completion:*' menu select setopt completeailiases
 
@@ -78,10 +82,19 @@ alias c='clear'
 alias cat='bat'
 alias ls='eza --tree --level=1 --color=always --long --git --no-filesize --icons=always --no-permissions --no-time --no-user'
 alias vim='nvim'
+alias cls="clear"
+
+# LRC Servers
+alias mario='op run -- sshpass -e ssh av36696@mario.ece.utexas.edu'
+alias grader2='op run -- sshpass -e ssh av36696@grader2.ece.utexas.edu'
+
+# Flash FPGA
+alias flash='openFPGALoader -b basys3'
 
 # Shell integration
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(thefuck --alias fuck)"
 
 # Remove "(base)" from the prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
@@ -89,7 +102,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export FZF_DEFAULT_COMMAND='fd --hidden --strip-cwd-prefix --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --follow --exclude .git"
-
 
 # Change search method of fzf to use fd
 _fzf_compgen_path() {

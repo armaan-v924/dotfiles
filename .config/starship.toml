@@ -3,12 +3,7 @@
 add_newline = true
 
 format = """
-$os\
-$shell\
-$username\
-$hostname\
-$directory\
-$git_branch\
+$os$shell$username$hostname$directory$git_branch$character
 """
 
 right_format = """
@@ -16,6 +11,7 @@ $cmd_duration\
 $conda\
 $time\
 """
+
 [fill]
 symbol = " "
 
@@ -37,9 +33,9 @@ show_always = true
 ssh_symbol = " "
 
 [character]
-success_symbol = "[󰁔](bright-cyan)"
-error_symbol = "[󰁔](bright-red)"
-vimcmd_symbol = "[](green)"
+success_symbol = "[─󰁔](bright-cyan)"
+error_symbol = "[─󰁔](bright-red)"
+vimcmd_symbol = "[─](green)"
 
 [git_branch]
 format = "[on $symbol$branch ]($style)"

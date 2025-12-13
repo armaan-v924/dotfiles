@@ -3,9 +3,6 @@ set -euo pipefail
 
 DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 
-source "$DOTFILES/shell/colors.sh"
-source "$DOTFILES/shell/log.sh"
-
 source "$DOTFILES/bootstrap/lib.sh"
 
 LOG_ICONS=0

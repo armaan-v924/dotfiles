@@ -1,2 +1,5 @@
 overlays/*
 !overlays/*.example
+
+*.local
+*.env

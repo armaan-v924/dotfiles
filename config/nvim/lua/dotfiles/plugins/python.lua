@@ -17,6 +17,7 @@ function M.setup()
   local map = require("dotfiles.utils.mappings")
   map.register({
     p = {
+      name = "󰌠 Python",
       v = { "<cmd>VenvSelect<CR>", "󰌠 Select Python env" },
       r = { "<cmd>VenvSelectCached<CR>", "󰁯 Reuse last env" },
     },

@@ -20,6 +20,17 @@ function M.setup()
       map("<leader>gr", require("gitsigns").reset_hunk, "󰁯 Reset hunk")
       map("<leader>gp", require("gitsigns").preview_hunk, "󰈈 Preview hunk")
       map("<leader>gb", require("gitsigns").blame_line, "󰊢 Blame line")
+
+      local ok, wk = pcall(require, "which-key")
+      if ok then
+        wk.add({
+          { "<leader>g", group = "󰊢 Git", buffer = bufnr },
+          { "<leader>gs", desc = "Stage hunk", buffer = bufnr },
+          { "<leader>gr", desc = "Reset hunk", buffer = bufnr },
+          { "<leader>gp", desc = "Preview hunk", buffer = bufnr },
+          { "<leader>gb", desc = "Blame line", buffer = bufnr },
+        }, { mode = "n" })
+      end
     end,
   })
 end

@@ -26,6 +26,7 @@ function M.setup()
   local map = require("dotfiles.utils.mappings")
   map.register({
     f = {
+      name = "󰍉 Find",
       y = { "<cmd>Telescope neoclip<CR>", "󰅌 Clipboard history" },
     },
   }, { prefix = "<leader>" })

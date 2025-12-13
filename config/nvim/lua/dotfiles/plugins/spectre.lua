@@ -26,6 +26,7 @@ function M.setup()
   local map = require("dotfiles.utils.mappings")
   map.register({
     s = {
+      name = "󰈞 Search",
       r = {
         function()
           spectre.open()

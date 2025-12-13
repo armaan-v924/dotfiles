@@ -17,7 +17,7 @@ function M.setup()
   local mappings = require("dotfiles.utils.mappings")
   mappings.register({
     t = {
-      name = "Tmux",
+      name = "󰓡 Tmux",
       g = {
         function()
           tmux_utils.popup("lazygit", { title = "lazygit" })

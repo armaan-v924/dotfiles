@@ -30,6 +30,28 @@ local function toggle_virtual_text()
   end
 end
 
+local function register_lsp_which_key(bufnr)
+  local ok, wk = pcall(require, "which-key")
+  if not ok then
+    return
+  end
+
+  wk.add({
+    { "<leader>c", group = "󰘧 Code", buffer = bufnr },
+    { "<leader>cd", desc = "Go to definition", buffer = bufnr },
+    { "<leader>cr", desc = "References", buffer = bufnr },
+    { "<leader>ci", desc = "Go to implementation", buffer = bufnr },
+    { "<leader>ca", desc = "Code action", buffer = bufnr },
+    { "<leader>cf", desc = "Format buffer", buffer = bufnr },
+    { "<leader>crn", desc = "Rename symbol", buffer = bufnr },
+    { "<leader>ce", desc = "Line diagnostics", buffer = bufnr },
+    { "<leader>cl", desc = "Diagnostics to loclist", buffer = bufnr },
+    { "<leader>ct", desc = "Toggle inline diagnostics", buffer = bufnr },
+    { "[d", desc = "Previous diagnostic", buffer = bufnr },
+    { "]d", desc = "Next diagnostic", buffer = bufnr },
+  }, { mode = "n" })
+end
+
 local function on_attach(client, bufnr)
   local map = function(lhs, rhs, desc)
     vim.keymap.set("n", lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
@@ -50,6 +72,8 @@ local function on_attach(client, bufnr)
   map("<leader>ct", toggle_virtual_text, "Toggle inline diagnostics")
   map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
   map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
+
+  register_lsp_which_key(bufnr)
 end
 
 function M.setup()

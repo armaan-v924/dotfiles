@@ -7,6 +7,7 @@ function M.setup()
   local map = require("dotfiles.utils.mappings")
   map.register({
     c = {
+      name = "󰘧 Code",
       R = {
         function()
           refactoring.select_refactor()
@@ -18,6 +19,7 @@ function M.setup()
 
   map.register({
     c = {
+      name = "󰘧 Code",
       R = {
         function()
           require("telescope").extensions.refactoring.refactors()

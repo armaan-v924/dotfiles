@@ -85,10 +85,15 @@ link_dir_contents() {
 # --- XDG dirs --------------------------------------------------------------
 
 ensure_dir "$HOME/.config"
+ensure_dir "$HOME/.config/alacritty"
 ensure_dir "$HOME/.config/tmux"
 ensure_dir "$HOME/.config/tmux/scripts"
 ensure_dir "$HOME/.config/ruff"
 ensure_dir "$HOME/.config/uv"
+
+# --- alacritty -------------------------------------------------------------
+
+link_one "$DOTFILES/config/alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
 
 # --- tmux ------------------------------------------------------------------
 

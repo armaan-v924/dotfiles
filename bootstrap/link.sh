@@ -95,6 +95,10 @@ ensure_dir "$HOME/.config/uv"
 
 link_one "$DOTFILES/config/alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
 
+# --- starship --------------------------------------------------------------
+
+link_one "$DOTFILES/config/starship/starship.toml" "$HOME/.config/starship.toml"
+
 # --- tmux ------------------------------------------------------------------
 
 link_one "$DOTFILES/config/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"

@@ -1,0 +1,11 @@
+[init]
+	defaultBranch = main
+
+[fetch]
+	prune = true
+
+[include]
+	path = ~/.gitconfig-machine
+
+[includeIf "gitdir:~/personal-projects/"]
+	path = ~/.gitconfig-personal-scope

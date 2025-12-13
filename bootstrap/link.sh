@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source "$DOTFILES/shell/log.sh"
+DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+source "$DOTFILES/bootstrap/lib.sh"
 
 timestamp="$(date +"%Y-%m-%d_%H%M%S")"
 backup_root="$HOME/.backup/dotfiles_${timestamp}"
@@ -86,6 +87,7 @@ link_dir_contents() {
 
 ensure_dir "$HOME/.config"
 ensure_dir "$HOME/.config/alacritty"
+ensure_dir "$HOME/.config/nvim"
 ensure_dir "$HOME/.config/tmux"
 ensure_dir "$HOME/.config/tmux/scripts"
 ensure_dir "$HOME/.config/ruff"
@@ -98,6 +100,10 @@ link_one "$DOTFILES/config/alacritty/alacritty.toml" "$HOME/.config/alacritty/al
 # --- starship --------------------------------------------------------------
 
 link_one "$DOTFILES/config/starship/starship.toml" "$HOME/.config/starship.toml"
+
+# --- neovim ----------------------------------------------------------------
+
+link_one "$DOTFILES/config/nvim" "$HOME/.config/nvim"
 
 # --- tmux ------------------------------------------------------------------
 

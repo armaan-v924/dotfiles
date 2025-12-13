@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+source "$DOTFILES/bootstrap/lib.sh"
+
 list_overlays() {
   local overlays_dir="$DOTFILES/overlays"
   [[ -d "$overlays_dir" ]] || return 0

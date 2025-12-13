@@ -2,7 +2,6 @@
 set -euo pipefail
 
 DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
-
 source "$DOTFILES/bootstrap/lib.sh"
 source "$DOTFILES/bootstrap/overlay.sh"
 

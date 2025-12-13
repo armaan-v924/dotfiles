@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 source "$DOTFILES/bootstrap/lib.sh"
 
 require_git() {

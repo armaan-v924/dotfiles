@@ -15,3 +15,5 @@ case "$(uname)" in
 esac
 
 export OS
+
+export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"

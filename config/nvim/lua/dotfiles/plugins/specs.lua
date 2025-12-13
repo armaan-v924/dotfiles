@@ -44,6 +44,13 @@ return {
     end,
   },
   {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("dotfiles.plugins.fzf").setup()
+    end,
+  },
+  {
     "AckslD/nvim-neoclip.lua",
     dependencies = {
       "nvim-telescope/telescope.nvim",

@@ -1,8 +1,14 @@
 git
 curl
 fzf
+fd
 ripgrep
 tmux
 starship
 nvim
 node
+eza
+bat
+zoxide
+zsh-autosuggestions
+zsh-syntax-highlighting

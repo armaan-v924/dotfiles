@@ -34,15 +34,15 @@ choose_overlay() {
   done < <(list_overlays)
 
   if [[ "${#overlays[@]}" -eq 0 ]]; then
-    log::warn "No overlays found; using 'personal'"
+    log::warn "No overlays found; using 'personal'" >&2
     echo "personal"
     return 0
   fi
 
-  log::info "Available overlays:"
+  log::info "Available overlays:" >&2
   local i=1
   for name in "${overlays[@]}"; do
-    log::info "  [$i] $name"
+    log::info "  [$i] $name" >&2
     i=$((i+1))
   done
 
@@ -57,7 +57,7 @@ choose_overlay() {
       echo "${overlays[$((choice-1))]}"
       return 0
     fi
-    log::warn "Invalid selection: $choice"
+    log::warn "Invalid selection: $choice" >&2
   done
 }
 

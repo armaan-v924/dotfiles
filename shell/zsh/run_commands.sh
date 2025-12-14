@@ -3,6 +3,15 @@ if [[ -z "${DOTFILES_COMPINIT:-}" ]]; then
   DOTFILES_COMPINIT=1
 fi
 
+# Source reusable shell utilities (if any)
+_dotfiles_utils_dir="$DOTFILES/shell/utils"
+if [[ -d "$_dotfiles_utils_dir" ]]; then
+  while IFS= read -r -d '' _dotfiles_util; do
+    source "$_dotfiles_util"
+  done < <(find "$_dotfiles_utils_dir" -type f -name '*.sh' -print0 2>/dev/null | sort -z)
+fi
+unset _dotfiles_util _dotfiles_utils_dir
+
 if command -v fzf >/dev/null 2>&1; then
   export FZF_DEFAULT_OPTS="--layout=reverse --info=inline --border=rounded --prompt=' ' --pointer='' --marker='' --color=fg:#d5d7de,bg:-1,hl:#8aa2d3 --color=fg+:#f8f8f2,bg+:#1b1d23,hl+:#8aa2d3 --color=pointer:#8aa2d3,marker:#8aa2d3,header:#8aa2d3,prompt:#8aa2d3,spinner:#8aa2d3,border:#2b2d37,separator:#2b2d37,scrollbar:#2b2d37,gutter:#1b1d23"
 

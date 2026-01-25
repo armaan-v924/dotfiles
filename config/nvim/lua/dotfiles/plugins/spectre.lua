@@ -22,25 +22,6 @@ function M.setup()
       },
     },
   })
-
-  local map = require("dotfiles.utils.mappings")
-  map.register({
-    s = {
-      name = "󰈞 Search",
-      r = {
-        function()
-          spectre.open()
-        end,
-        "󰛔 Search & replace",
-      },
-      R = {
-        function()
-          spectre.open_visual({ select_word = true })
-        end,
-        "󰛔 Replace word",
-      },
-    },
-  }, { prefix = "<leader>" })
 end
 
 return M

@@ -9,6 +9,21 @@
 
 [includeIf "gitdir:~/personal-projects/"]
 	path = ~/.gitconfig-personal-scope
-	
+
 [commit]
 	gpgsign = true
+[alias]
+	new = "!f() {\n    branch=\"avakharia/$1\";\n    echo \"🔧 Target branch: $branch\";\n\n    if git rev-parse --verify --quiet \"$branch\" >/dev/null; then\n      echo \"📍 Branch exists locally. Switching to it.\";\n      git switch \"$branch\";\n    elif git ls-remote --exit-code --heads origin \"$branch\" >/dev/null 2>&1; then\n      echo \"🌐 Branch exists on remote. Tracking origin/$branch.\";\n      git switch --track \"origin/$branch\";\n    else\n      echo \"✨ Branch does not exist locally or remotely. Creating and pushing.\";\n      git switch -c \"$branch\" && git push -u origin \"$branch\";\n    fi\n  }; f"
+	sync = "!f() {\n    echo \"🔄 Fetching latest changes from origin...\";\n    git fetch origin;\n\n    echo \"🔄 Rebasing current branch onto origin/main...\";\n    git rebase origin/main;\n  }; f"
+	undo = "!f() {\n    echo \"↩️ Soft resetting last commit (changes will remain staged)...\";\n    git reset --soft HEAD~1;\n  }; f"
+	nuke = "!f() {\n    branch=$(git rev-parse --abbrev-ref HEAD);\n    echo \"💣 Hard resetting $branch to origin/$branch...\";\n    git fetch origin;\n    git reset --hard origin/$branch;\n  }; f"
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[pull]
+	rebase = false
+[core]
+	autocrlf = input
+	hooksPath = ~/.config/scripts/git-hooks

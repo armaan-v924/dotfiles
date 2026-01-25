@@ -25,8 +25,9 @@ manifest_lines() {
 collect_manifests() {
   # Usage: collect_manifests <manifest> [variant ...]
   # Example: collect_manifests packages common "$OS"
-  # Outputs absolute manifest paths in precedence order:
+  # Outputs absolute manifest paths for merging:
   # base manifests first, then overlay manifests.
+  # Both sets are merged and deduplicated by read_manifest_to_array.
   local manifest="$1"
   shift
   local variants=("$@")
@@ -58,6 +59,7 @@ collect_manifests() {
 read_manifest_to_array() {
   # Usage: read_manifest_to_array <array_name> <manifest> [variant ...]
   # Populates array_name with sorted unique package entries.
+  # Merges base and overlay manifests, deduplicating package names.
   local __target="$1"
   shift
   local manifest="$1"

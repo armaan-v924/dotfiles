@@ -65,6 +65,10 @@ apply_overlay_env() {
   local name="$1"
   local overlay_dir="$DOTFILES/overlays/$name"
 
+  # Persist the overlay choice for future shell sessions
+  echo "$name" > "$DOTFILES/.overlay"
+  log::debug "Persisted overlay selection: $name"
+
   if [[ ! -d "$overlay_dir" ]]; then
     log::warn "Overlay '$name' not found at $overlay_dir (continuing without overlay env)"
     return 0
@@ -73,7 +77,7 @@ apply_overlay_env() {
   export DOTFILES_OVERLAY="$name"
   export DOTFILES_OVERLAY_DIR="$overlay_dir"
 
-  # Overlay bootstrap env (bash-compatible)
+  # Overlay common env (bash-compatible, loaded by both bootstrap and shell)
   local env_file="$overlay_dir/shell/env.sh"
   if [[ -f "$env_file" ]]; then
     # shellcheck source=/dev/null
@@ -81,5 +85,15 @@ apply_overlay_env() {
     log::info "Applied overlay env: $name"
   else
     log::debug "No overlay env.sh found for $name"
+  fi
+
+  # Overlay bootstrap-specific env (bootstrap only, not loaded by shell)
+  local bootstrap_env="$overlay_dir/shell/bootstrap/build.env"
+  if [[ -f "$bootstrap_env" ]]; then
+    # shellcheck source=/dev/null
+    source "$bootstrap_env"
+    log::info "Applied overlay bootstrap env: $name"
+  else
+    log::debug "No overlay bootstrap/build.env found for $name"
   fi
 }

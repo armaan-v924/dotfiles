@@ -79,7 +79,12 @@ how these dotfiles are designed, extended, and maintained.
 
 * Located under `overlays/<name>/` (ignored; usually their own Git repo).
 * May provide manifests, installers, setup scripts, shell env, gitconfig, etc.
-* Overlay directories mirror base structure; only populate what’s needed.
+* Overlay directories mirror base structure; only populate what's needed.
+* Bootstrap writes the selected overlay name to `.overlay` (gitignored) to persist
+  the choice across shell sessions.
+* Shell startup reads `.overlay` to determine which overlay to apply (if any).
+* Priority: `DOTFILES_OVERLAY_DIR` env var → `.overlay` file → `DOTFILES_OVERLAY`
+  env var → auto-discovery (single overlay only).
 
 ### 2.6 Documentation & Support Files
 

@@ -53,7 +53,7 @@ brew::_install_casks() {
   fi
 
   log::info "Installing brew casks: ${casks[*]}"
-  brew install --cask "${casks[@]}"
+  brew install --cask --adopt "${casks[@]}"
 }
 
 brew::install() {

@@ -22,14 +22,6 @@ function M.setup()
   })
 
   pcall(require("telescope").load_extension, "neoclip")
-
-  local map = require("dotfiles.utils.mappings")
-  map.register({
-    f = {
-      name = "󰍉 Find",
-      y = { "<cmd>Telescope neoclip<CR>", "󰅌 Clipboard history" },
-    },
-  }, { prefix = "<leader>" })
 end
 
 return M

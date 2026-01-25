@@ -1,17 +1,26 @@
 add_newline = false
 
-format = "$directory $character"
+format = "$directory $cmd_duration$character"
 
 # ------------------------------------------------------------
 # Directory
 # ------------------------------------------------------------
 [directory]
-truncate_to_repo = true
+truncate_to_repo = false
 truncation_length = 3
 truncation_symbol = "…/"
 style = "fg:245"
 format = " [$path]($style)"
 home_symbol = "~"
+
+# ------------------------------------------------------------
+# Command Duration
+# ------------------------------------------------------------
+[cmd_duration]
+format = "[$duration]($style) "
+style = "fg:245"
+min_time = 0 # milliseconds
+show_milliseconds = true
 
 # ------------------------------------------------------------
 # Git

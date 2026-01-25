@@ -2,5 +2,11 @@ overlays/*
 !overlays/*.example
 !overlays/README.md
 
-*.local
-*.env
+**/*.local
+**/*.env
+
+# Persisted overlay selection (set by bootstrap)
+/.overlay
+
+.cache/**
+.nvimlog

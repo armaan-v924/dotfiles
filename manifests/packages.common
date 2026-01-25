@@ -9,6 +9,7 @@ nvim
 node
 eza
 bat
+uv
 zoxide
 zsh-autosuggestions
 zsh-syntax-highlighting

@@ -33,8 +33,7 @@ function M.setup()
       view_error = "notify",
     },
     notify = {
-      enabled = true,
-      view = "notify",
+      enabled = false,
     },
     lsp = {
       progress = { enabled = true },

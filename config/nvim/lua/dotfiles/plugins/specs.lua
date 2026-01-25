@@ -57,6 +57,27 @@ return {
       "kkharji/sqlite.lua",
     },
     event = "TextYankPost",
+    init = function()
+      local map = require("dotfiles.utils.mappings")
+      local function load_and_run(cmd)
+        return function()
+          local ok, lazy = pcall(require, "lazy")
+          if ok then
+            lazy.load({ plugins = { "nvim-neoclip.lua" } })
+          end
+          vim.schedule(function()
+            vim.cmd(cmd)
+          end)
+        end
+      end
+
+      map.register({
+        f = {
+          name = "󰍉 Find",
+          y = { load_and_run("Telescope neoclip"), "󰅌 Clipboard history" },
+        },
+      }, { prefix = "<leader>" })
+    end,
     config = function()
       require("dotfiles.plugins.neoclip").setup()
     end,
@@ -65,6 +86,30 @@ return {
     "nvim-pack/nvim-spectre",
     cmd = "Spectre",
     dependencies = { "nvim-lua/plenary.nvim" },
+    init = function()
+      local map = require("dotfiles.utils.mappings")
+      local function load_and_call(fn)
+        return function()
+          local ok, lazy = pcall(require, "lazy")
+          if ok then
+            lazy.load({ plugins = { "nvim-spectre" } })
+          end
+          vim.schedule(fn)
+        end
+      end
+
+      map.register({
+        s = {
+          name = "󰈞 Search",
+          r = { load_and_call(function()
+            require("spectre").open()
+          end), "󰛔 Search & replace" },
+          R = { load_and_call(function()
+            require("spectre").open_visual({ select_word = true })
+          end), "󰛔 Replace word" },
+        },
+      }, { prefix = "<leader>" })
+    end,
     config = function()
       require("dotfiles.plugins.spectre").setup()
     end,
@@ -170,17 +215,73 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     event = "VeryLazy",
+    init = function()
+      local map = require("dotfiles.utils.mappings")
+      local function load_plugin()
+        local ok, lazy = pcall(require, "lazy")
+        if ok then
+          lazy.load({ plugins = { "refactoring.nvim" } })
+        end
+      end
+
+      map.register({
+        c = {
+          name = "󰘧 Code",
+          R = { function()
+            load_plugin()
+            vim.schedule(function()
+              require("refactoring").select_refactor()
+            end)
+          end, "󰡱 Refactor" },
+        },
+      }, { prefix = "<leader>", mode = "v" })
+
+      map.register({
+        c = {
+          name = "󰘧 Code",
+          R = { function()
+            load_plugin()
+            vim.schedule(function()
+              local telescope = require("telescope")
+              pcall(telescope.load_extension, "refactoring")
+              telescope.extensions.refactoring.refactors()
+            end)
+          end, "󰡱 Refactor menu" },
+        },
+      }, { prefix = "<leader>", mode = "n" })
+    end,
     config = function()
       require("dotfiles.plugins.refactoring").setup()
     end,
   },
   {
     "linux-cultist/venv-selector.nvim",
-    branch = "regexp",
     dependencies = {
       "nvim-telescope/telescope.nvim",
     },
-    cmd = "VenvSelect",
+    cmd = { "VenvSelect", "VenvSelectCached" },
+    init = function()
+      local map = require("dotfiles.utils.mappings")
+
+      local function load_and_run(cmd)
+        return function()
+          local ok, lazy = pcall(require, "lazy")
+          if ok then
+            lazy.load({ plugins = { "venv-selector.nvim" } })
+          end
+          vim.schedule(function()
+            vim.cmd(cmd)
+          end)
+        end
+      end
+
+      map.register({
+        p = {
+          v = { load_and_run("VenvSelect"), "󰌠 Select Python env" },
+          r = { load_and_run("VenvSelectCached"), "󰁯 Reuse last env" },
+        },
+      }, { prefix = "<leader>" })
+    end,
     config = function()
       require("dotfiles.plugins.python").setup()
     end,
